@@ -2,7 +2,12 @@ export default function RegisterForm() {
 	return (
 		<form className='row gx-2 gy-3'>
 			<div className='col-6'>
-				<input className='form-control' type='text' placeholder='First name' />
+				<input
+					className='form-control'
+					type='text'
+					placeholder='First name'
+					ref={(inputElement) => inputElement ? inputElement.focus() : ''}
+				/>
 			</div>
 			<div className='col-6'>
 				<input className='form-control' type='text' placeholder='Last name' />
