@@ -20,27 +20,43 @@ export default function RegisterModal() {
 						<div className='modal-body'>
 							{/* Register Form */}
 
-							<form>
-								<textarea
-									className='form-control border-0 shadow-none resize-none'
-									placeholder="What's on your mind, Hsiao?"
-									rows='5'
-								/>
-								<div className='position-relative' role='button'>
-									<div className='d-flex flex-column align-items-center mt-3 py-3 rounded-2 bg-gray-100 hover-bg-gray-200'>
-										<div className='text-center rounded-circle bg-gray-300 p-2 position-relative h-10 w-10 '>
-											<i className='fa-regular fa-image position-absolute top-50 left-50 translate-middle' />
-										</div>
-										<div className='mt-1'>Add Photos</div>
-									</div>
-								</div>
-								<input type='file' className='d-none' />
-								<div className='pt-3'>
-									<button className='btn btn-primary w-100 fw-bold text-3.5 h-9'>
-										Post
-									</button>
-								</div>
-							</form>
+							<form className='row gx-2 gy-3'>
+			<div className='col-6'>
+				<input className='form-control' type='text' placeholder='First name' />
+			</div>
+			<div className='col-6'>
+				<input className='form-control' type='text' placeholder='Last name' />
+			</div>
+			<div className='col-12'>
+				<input
+					className='form-control'
+					type='text'
+					placeholder='Mobile number or email address'
+				/>
+			</div>
+			<div className='col-12'>
+				<input
+					className='form-control'
+					type='text'
+					placeholder='New password'
+				/>
+			</div>
+			<div className='col-12'>
+				<input
+					className='form-control'
+					type='text'
+					placeholder='Confirm password'
+				/>
+			</div>
+			<div className='col-12'>
+				<button
+					type='submit'
+					className='btn btn-green btn-sm text-4.5 h-9 tw-px-10'
+				>
+					Sign Up
+				</button>
+			</div>
+		</form>
 
 							{/* End Register Form */}
 						</div>
