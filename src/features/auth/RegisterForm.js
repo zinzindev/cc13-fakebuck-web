@@ -1,8 +1,13 @@
-export default function RegisterForm() {
+export default function  RegisterForm() {
 	return (
 		<form className='row gx-2 gy-3'>
 			<div className='col-6'>
-				<input className='form-control' type='text' placeholder='First name' />
+				<input
+					className='form-control'
+					type='text'
+					placeholder='First name'
+					ref={(inputElement) => inputElement ? inputElement.focus() : ''}
+				/>
 			</div>
 			<div className='col-6'>
 				<input className='form-control' type='text' placeholder='Last name' />
@@ -17,14 +22,14 @@ export default function RegisterForm() {
 			<div className='col-12'>
 				<input
 					className='form-control'
-					type='text'
+					type='password'
 					placeholder='New password'
 				/>
 			</div>
 			<div className='col-12'>
 				<input
 					className='form-control'
-					type='text'
+					type='password'
 					placeholder='Confirm password'
 				/>
 			</div>
