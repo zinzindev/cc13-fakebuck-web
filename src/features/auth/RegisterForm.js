@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import * as Joi from 'joi';
+import Input from '../../components/Input';
+import validateRegister from '../../validators/validate-register';
 
 const initialInput = {
 	firstName: '',
@@ -9,26 +10,9 @@ const initialInput = {
 	confirmPassword: '',
 };
 
-const regitsterSchem = Joi.object({
-	firstName: Joi.string().trim().required(),
-	lastName: Joi.string().trim().required(),
-	emailOrMobile: Joi.alternatives().try(
-		Joi.string().email({ tlds: false }),
-		Joi.string().pattern(/^[0-9]{10}$/)
-	),
-	password: Joi.string().alphanum().min(6).required().trim(),
-	confirmPassword: Joi.string().valid(Joi.ref('password')).required().trim(),
-});
-
-const validateRegister = (input) => {
-	return regitsterSchem.validate(input, {
-		abortEarly: false,
-	});
-};
-
 export default function RegisterForm() {
 	const [input, setInput] = useState(initialInput);
-	const [error, setError] = useState(initialInput);
+	const [error, setError] = useState({});
 
 	const handleChangeInput = (e) => {
 		setInput({ ...input, [e.target.name]: e.target.value });
@@ -36,75 +20,59 @@ export default function RegisterForm() {
 
 	const handleSubmitForm = (e) => {
 		e.preventDefault();
-		const { value, error } = validateRegister(input);
-		if (error) {
-			const newError = error.details.reduce((acc, el) => {
-				acc[el.context.label] = el.message;
-				return acc;
-			}, {});
-			console.dir(newError);
-			setError(newError);
-		}
-		console.dir(error);
+		const resultErr = validateRegister(input);
+		// console.dir(resultErr);
+		resultErr ? setError(resultErr) : setError({});
 	};
 
 	return (
 		<form className='row gx-2 gy-3' onSubmit={handleSubmitForm}>
 			<div className='col-6'>
-				<input
-					className='form-control is-invalid'
-					type='text'
+				<Input
 					placeholder='First name'
 					name='firstName'
 					value={input.firstName}
 					onChange={handleChangeInput}
-					ref={(inputElement) => (inputElement ? inputElement.focus() : '')}
+					error={error.firstName}
 				/>
-				<div className='invalid-feedback'>{error.firstName}</div>
 			</div>
 			<div className='col-6'>
-				<input
-					className='form-control is-invalid'
-					type='text'
+				<Input
 					placeholder='Last name'
-					name='lsstName'
-					value={input.lsstName}
+					name='lastName'
+					value={input.lastName}
 					onChange={handleChangeInput}
+					error={error.lastName}
 				/>
-				<div className='invalid-feedback'>{error.lastName}</div>
 			</div>
 			<div className='col-12'>
-				<input
-					className='form-control is-invalid'
-					type='text'
-					placeholder='Mobile number or email address'
+				<Input
+					placeholder='Email address or mobile number'
 					name='emailOrMobile'
 					value={input.emailOrMobile}
 					onChange={handleChangeInput}
+					error={error.emailOrMobile}
 				/>
-				<div className='invalid-feedback'>{error.emailOrMobile}</div>
 			</div>
 			<div className='col-12'>
-				<input
-					className='form-control is-invalid'
+				<Input
 					type='password'
 					placeholder='New password'
 					name='password'
 					value={input.password}
 					onChange={handleChangeInput}
+					error={error.password}
 				/>
-				<div className='invalid-feedback'>{error.password}</div>
 			</div>
 			<div className='col-12'>
-				<input
-					className='form-control is-invalid'
+				<Input
 					type='password'
 					placeholder='Confirm password'
 					name='confirmPassword'
 					value={input.confirmPassword}
 					onChange={handleChangeInput}
+					error={error.confirmPassword}
 				/>
-				<div className='invalid-feedback'>{error.confirmPassword}</div>
 			</div>
 			<div className='col-12'>
 				<button
