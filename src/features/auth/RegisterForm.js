@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Input from '../../components/Input';
 import validateRegister from '../../validators/validate-register';
+import * as authApi from '../../apis/auth-api';
 
 const initialInput = {
 	firstName: '',
@@ -18,11 +19,24 @@ export default function RegisterForm() {
 		setInput({ ...input, [e.target.name]: e.target.value });
 	};
 
-	const handleSubmitForm = (e) => {
-		e.preventDefault();
-		const resultErr = validateRegister(input);
-		// console.dir(resultErr);
-		resultErr ? setError(resultErr) : setError({});
+	const handleSubmitForm = async (e) => {
+		try {
+			e.preventDefault();
+			const resultErr = validateRegister(input);
+			// console.dir(resultErr);
+			if (resultErr) {
+				setError(resultErr);
+			} else {
+				setError({});
+				// await axios.post('http://localhost:8888/auth/register', {
+				// 	firstName: 'John',
+				// 	lastName: 'Doe',
+				// 	password: '123456',
+				// 	email: 'g@gmail.com',
+				// });
+				await authApi.register(input);
+			}
+		} catch (error) {}
 	};
 
 	return (
