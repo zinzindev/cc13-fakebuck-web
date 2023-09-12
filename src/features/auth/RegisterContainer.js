@@ -20,7 +20,7 @@ export default function RegisterContainer() {
 				{/* modal element*/}
 			</div>
 			<Modal open={open} onClose={() => setOpen(false)} title='Sign Up'>
-				<RegisterForm />
+				<RegisterForm onClose={() => setOpen(false)}/>
 			</Modal>
 		</>
 	);
