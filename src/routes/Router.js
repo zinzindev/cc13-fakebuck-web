@@ -4,23 +4,41 @@ import FriendPage from '../pages/FriendPage';
 import LoginPage from '../pages/LoginPage';
 import PostPage from '../pages/PostPage';
 import ProfilePage from '../pages/ProfilePage';
+import RedirectIfAuthenticate from '../features/auth/RedirectIfAuthenticate';
+import ProtectedRoute from '../features/auth/ProtectedRoute';
+import AuthLayout from '../layouts/AuthLayout';
 
 const router = createBrowserRouter([
 	{
 		path: '/login',
-        element: <LoginPage />,
+		element: (
+			<RedirectIfAuthenticate>
+				<LoginPage />
+			</RedirectIfAuthenticate>
+		),
 	},
+
+	// nested route
 	{
-		path: '/',
-        element: <PostPage />,
-	},
-	{
-		path: '/friend',
-        element: <FriendPage />,
-	},
-	{
-		path: '/profile',
-        element: <ProfilePage />,
+		element: (
+			<ProtectedRoute>
+				<AuthLayout />
+			</ProtectedRoute>
+		),
+		children: [
+			{
+				path: '/',
+				element: <PostPage />,
+			},
+			{
+				path: '/friend',
+				element: <FriendPage />,
+			},
+			{
+				path: '/profile',
+				element: <ProfilePage />,
+			},
+		],
 	},
 ]);
 
