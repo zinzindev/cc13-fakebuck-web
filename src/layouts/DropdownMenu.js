@@ -1,8 +1,9 @@
+import Avatar from '../components/Avatar';
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
 export default function DropdownMenu({ open, onClose }) {
-	const { logout } = useAuth();
+	const { logout, authenticatedUser } = useAuth();
 
 	return (
 		<div
@@ -15,15 +16,11 @@ export default function DropdownMenu({ open, onClose }) {
 				className='dropdown-item p-2 d-flex align-items-center gap-3 hover-bg-neutral-100 hover-rounded-lg'
 				onClick={onClose}
 			>
-				<img
-					src='https://images.pexels.com/photos/5193860/pexels-photo-5193860.png'
-					className='rounded-circle'
-					width='60'
-					height='60'
-					alt='user'
-				/>
+				<Avatar src={authenticatedUser.profileImage} size={60} />
 				<div className='d-flex flex-column'>
-					<span className='text-black fw-bold'>Hsiao Li</span>
+					<span className='text-black fw-bold'>
+						{authenticatedUser.firstName} {authenticatedUser.lastName}
+					</span>
 					<small className='text-muted'>See your profile</small>
 				</div>
 			</Link>
