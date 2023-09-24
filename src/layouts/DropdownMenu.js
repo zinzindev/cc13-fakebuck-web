@@ -12,7 +12,7 @@ export default function DropdownMenu({ open, onClose }) {
 			}`}
 		>
 			<Link
-				to='/profile'
+				to={`/profile/${authenticatedUser.id}`}
 				className='dropdown-item p-2 d-flex align-items-center gap-3 hover-bg-neutral-100 hover-rounded-lg'
 				onClick={onClose}
 			>

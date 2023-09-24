@@ -51,7 +51,7 @@ export default function PostPage() {
               </div>
 
               <div className="dropdown">
-                <button className="btn rounded-circle position-relative h-9 w-9 hover-bg-gray-200">
+                <button className="btn rounded-circle position-relative h-9 w-9 hover-bg-gray-200" aria-label="btn">
                   <i className="fa-solid fa-ellipsis text-muted position-absolute top-50 left-50 translate-middle" />
                 </button>
                 <div className="dropdown-menu end-0 mt-1">
@@ -133,7 +133,7 @@ export default function PostPage() {
                       </div>
 
                       <div className="dropdown">
-                        <button className="btn rounded-circle position-relative h-8 w-8 hover-bg-gray-200">
+                        <button className="btn rounded-circle position-relative h-8 w-8 hover-bg-gray-200" aria-label="btn">
                           <i className="fa-solid fa-ellipsis text-muted position-absolute top-50 left-50 translate-middle" />
                         </button>
                         <div className="dropdown-menu mt-1">
