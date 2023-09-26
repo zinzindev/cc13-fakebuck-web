@@ -12,7 +12,7 @@ export default function ProfileContainer() {
 	const [statusWithAuthUser, setstatusWithAuthUser] = useState(STATUS_ME);
 
 	const { userId } = useParams();
-	console.log(userId);
+	// console.log(userId);
 
 	useEffect(() => {
 		const fetchProfileUser = async () => {
