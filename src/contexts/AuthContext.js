@@ -3,11 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 import * as authApi from '../apis/auth-api';
 
-import {
-	getAccessToken,
-	removeAccessToken,
-	setAccessToken,
-} from '../utils/local-storage';
+import { getAccessToken, removeAccessToken, setAccessToken } from '../utils/local-storage';
 
 export const AuthContext = createContext();
 
@@ -42,8 +38,12 @@ export default function AuthContextProvider({ children }) {
 		setAuthenticatedUser(null);
 	};
 
+	const updateProfile = (data) => {
+		setAuthenticatedUser({ ...authenticatedUser, ...data });
+	};
+
 	return (
-		<AuthContext.Provider value={{ authenticatedUser, login, logout }}>
+		<AuthContext.Provider value={{ authenticatedUser, login, logout, updateProfile }}>
 			{children}
 		</AuthContext.Provider>
 	);

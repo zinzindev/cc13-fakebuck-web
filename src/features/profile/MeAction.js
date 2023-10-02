@@ -3,7 +3,7 @@ import Modal from '../../components/Modal';
 import ProfileImageForm from './ProfileImageForm';
 import CoverImageForm from './CoverImageForm';
 
-export default function MeAction() {
+export default function MeAction({ updateProfileUser }) {
 	const [open, setOpen] = useState(false);
 	return (
 		<>
@@ -15,7 +15,10 @@ export default function MeAction() {
 				<i className='fa-solid fa-pen' /> <span>Edit Profile</span>
 			</button>
 			<Modal open={open} onClose={() => setOpen(false)} title='Edit Profile'>
-				<ProfileImageForm />
+				<ProfileImageForm
+					onSuccess={() => setOpen(false)}
+					updateProfileUser={updateProfileUser}
+				/>
 				<CoverImageForm />
 			</Modal>
 		</>

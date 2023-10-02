@@ -1,15 +1,36 @@
-import useAuth from '../../hooks/useAuth';
-import Avatar from '../../components/Avatar';
 import { useRef, useState } from 'react';
 
-export default function ProfileImageForm() {
-	const {
-		authenticatedUser: { profileImage },
-	} = useAuth();
+import Avatar from '../../components/Avatar';
+import useAuth from '../../hooks/useAuth';
+import useLoading from '../../hooks/useLoading';
+import * as userApi from '../../apis/user-api';
+
+export default function ProfileImageForm({ onSuccess, updateProfileUser }) {
+	const { authenticatedUser, updateProfile } = useAuth();
+
+	const { profileImage } = authenticatedUser;
+
+	const { startLoading, stopLoading } = useLoading();
 
 	const [file, setFile] = useState(null);
 
 	const inputEl = useRef(); // {current: <input type='file' className='d-none' />}
+
+	const handdleClickSave = async () => {
+		try {
+			startLoading();
+			const formData = new FormData();
+			formData.append('profileImage', file);
+			const res = await userApi.updateProfile(formData);
+			updateProfile(res.data);
+			updateProfileUser(res.data);
+			stopLoading();
+			setFile(null);
+			onSuccess();
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<>
@@ -30,15 +51,18 @@ export default function ProfileImageForm() {
 				<div>
 					{file && (
 						<>
-							<button className='btn btn-link text-decoration-none hover-bg-gray-100'>
+							<button
+								className='btn btn-link text-decoration-none hover-bg-gray-100'
+								onClick={handdleClickSave}
+							>
 								Save
 							</button>
 							<button
 								className='btn btn-link text-decoration-none hover-bg-gray-100'
 								onClick={() => {
-                  setFile(null);
-                  inputEl.current.value = null;
-                  }}
+									setFile(null);
+									inputEl.current.value = null;
+								}}
 							>
 								Cancel
 							</button>

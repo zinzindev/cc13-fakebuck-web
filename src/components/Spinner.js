@@ -1,4 +1,4 @@
-export default function Spinner() {
+export default function  Spinner() {
 	return (
 		<div
 			className='d-flex flex-column justify-content-center align-items-center gap-3 offcanvas-backdrop show'
