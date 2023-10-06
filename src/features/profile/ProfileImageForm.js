@@ -7,13 +7,11 @@ import * as userApi from '../../apis/user-api';
 
 export default function ProfileImageForm({ onSuccess, updateProfileUser }) {
 	const { authenticatedUser, updateProfile } = useAuth();
-
 	const { profileImage } = authenticatedUser;
 
 	const { startLoading, stopLoading } = useLoading();
 
 	const [file, setFile] = useState(null);
-
 	const inputEl = useRef(); // {current: <input type='file' className='d-none' />}
 
 	const handdleClickSave = async () => {
@@ -78,10 +76,7 @@ export default function ProfileImageForm({ onSuccess, updateProfileUser }) {
 			</div>
 			<div className='text-center mt-3'>
 				<span onClick={() => inputEl.current.click()}>
-					<Avatar
-						src={file ? URL.createObjectURL(file) : profileImage}
-						size='168'
-					/>
+					<Avatar src={file ? URL.createObjectURL(file) : profileImage} size='168' />
 				</span>
 			</div>
 		</>
