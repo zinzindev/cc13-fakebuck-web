@@ -1,16 +1,37 @@
 import { useState } from 'react';
+
+import * as postApi from '../../apis/post-api';
 import useAuth from '../../hooks/useAuth';
 import useClickFileInput from '../../hooks/useClickFileInput';
+import useLoading from '../../hooks/useLoading';
 
-export default function PostForm() {
+export default function PostForm({onSuccess}) {
 	const [title, setTitle] = useState('');
+	const { startLoading, stopLoading } = useLoading();
 	const { file, ref, openFileInput, onChangeFileInput, onCancel } = useClickFileInput();
 	const {
 		authenticatedUser: { firstName },
 	} = useAuth();
 
+	const handleSubmitForm = async (e) => {
+		startLoading();
+		e.preventDefault();
+		const formData = new FormData();
+		if (title) {
+			formData.append('title', title);
+		}
+		if (file) {
+			formData.append('postImage', file);
+		}
+		await postApi.createPost(formData);
+		setTitle('');
+		onCancel();
+		onSuccess();
+		stopLoading();
+	};
+
 	return (
-		<form>
+		<form onSubmit={handleSubmitForm}>
 			<textarea
 				className='form-control border-0 shadow-none resize-none'
 				placeholder={`What's on your mind, ${firstName}?`}
